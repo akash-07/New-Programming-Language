@@ -1,6 +1,6 @@
-#New Programming Language (npl)
+**New Programming Language (npl)**
 
-#Documentation for npl
+**Documentation for npl**
 
 **Primitive Values in npl**
 
