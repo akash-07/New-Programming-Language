@@ -2,7 +2,7 @@
 
 **Documentation for npl**
 
-**1.Primitive Values in npl**
+**1. Primitive Values in npl**
 
 `(int n)` is a NPL expression (a constant) where `n` is a Racket integer.
 
@@ -18,7 +18,7 @@ being `(aunit)`.
 
 Eg. `(apair (int 10) (apair (int 12) (apair (int 13) (aunit))))`
 
-**2.Accessor functions**
+**2. Accessor functions**
 
 `(fst e)` and `(snd e)` retrieve the first and second element of
 a NPL pair only when `e` is a NPL pair, else it throws an error.
@@ -26,7 +26,7 @@ a NPL pair only when `e` is a NPL pair, else it throws an error.
 These can also be used recursively to retrieve elements of a
 NPL list.
 
-**3.Other library functions**
+**3. Other library functions**
 
  `(add e1 e2)` is a NPL expression that adds two sub-expressions
  `e1` and `e2` after evaluating them. For addition to hold, `e1` and `e2` should evaluate to NPL integer `(int n)`.
@@ -36,7 +36,7 @@ NPL list.
  `(isaunit e)` evaluates `e`, if the result is `(aunit)`, then
  `(int 1)` is returned or else `(int 0)` is returned.
 
- **4.Conditionals**
+ **4. Conditionals**
 
  NPL library provides two Conditional constructs for handling control flow.
 
@@ -50,7 +50,7 @@ NPL list.
  then it evaluates `e2` and that is the overall result or else it
  evaluates `e3` and that is the overall result.
 
-**5.let expressions**
+**5. let expressions**
 
 NPL offers two types of let expressions: `mlet` and `mlet*` much like the Racket's `let` and `let*`.
 
@@ -59,7 +59,7 @@ NPL offers two types of let expressions: `mlet` and `mlet*` much like the Racket
 `(mlet* ((s1.e1) (s2.e2) ... (sn.en)) e)` is another NPL
 construct that takes in a Racket list of Racket pairs and a NPL expression `e`. Each Racket pair is a Racket string and a NPL expression such that the result of evaluating the NPL expression `ei` is bound to variable `si`. `ei` is evaluated in an environment where `s1` through `si-1` is bound to `e1` through `ei-1`. Finally `e` is evaluated in an environment where each `si` is bound to the corresponding `ei` and the result of the whole expression is the result of evaluating `e`.
 
-**6.Functions**
+**6. Functions**
 
 All functions in NPL are one argument functions, not internally like Haskell but in true sense that is you cannot declare a two argument function in NPL. Functions are first class citizens and can be assigned to variables. Functions that take two or more argument can be written by currying functions together.
 
@@ -71,7 +71,7 @@ For eg. `(fun "addOne" "x" (add (var "x") (int 1)))` denotes a NPL function that
 
 For eg. `(call (var "addOne") (int 4))` calls the function `addOne` declared above with the argument `(int 4)`.
 
-**7.Extensions to NPL**
+**7. Extensions to NPL**
 
 Some handy functions have been conjured up using the above primitives to save time and energy.
 
@@ -85,15 +85,15 @@ Some handy functions have been conjured up using the above primitives to save ti
 
 `npl-sort` is a NPL sorting function which takes in a NPL list as an argument and returns a new sorted NPL list.
 
-**8.The actual interpreter**
+**8. The actual interpreter**
 
 The interpreter doesn't appear as a prompt but is essentially the function `(eval-exp e)` which takes in a NPL expression `e` and evaluates it.
 
-**9.Using NPL**
+**9. Using NPL**
 
 NPL files end with a `'.rkt'` extension since they are ultimately Racket files. Racket's module system requires you to declare `(module filename racket ....code here....)` at the top level in your program where `"filename.rkt"` is your NPL file. The first statement of the program must be `(require "npl.rkt")` which imports `npl` and it's library functions. `"npl.rkt"` should be present in the same directory as the your file `"filename.rkt"`.
 
-**10.Sample program**
+**10. Sample program**
 
 Below is a sample factorial program in NPL.
 
