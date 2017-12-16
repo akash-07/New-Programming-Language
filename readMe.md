@@ -121,3 +121,30 @@ Output
 C:\Users\USER\Desktop\Racket\Interpreter\tests>racket factorial.rkt
 (int 479001600)
 ```
+
+Sample usage of `npl-sort` function.
+
+```
+; filepath
+; C:\Users\USER\Desktop\Racket\Interpreter\tests\npl-sort.rkt
+; npl.rkt in the same directory
+
+(module npl-sort racket
+(require "npl.rkt")
+
+  (eval-exp
+    (call npl-sort
+      (apair (int 4) (apair (int 5) (apair (int 1) (apair (int 6) (apair (int 0)
+        (apair (int 11) (apair (int 2) (apair (int 15) (aunit)))))))))
+    )
+  )
+)
+
+```
+Output
+
+```
+C:\Users\USER\Desktop\Racket\Interpreter\tests>racket npl-sort.rkt
+(apair (int 0) (apair (int 1) (apair (int 2) (apair (int 4) (apair (int
+5) (apair (int 6) (apair (int 11) (apair (int 15) (aunit)))))))))
+```
