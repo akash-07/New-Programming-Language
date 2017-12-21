@@ -1,8 +1,6 @@
 (module npl racket
-;; Programming Languages, Homework 5
 
-;#lang racket
-;(provide (all-defined-out)) ;; so we can put tests in a second file
+; export constructors
 (provide
 (struct-out var)
 (struct-out int)
@@ -21,7 +19,7 @@
 (struct-out isaunit)
 eval-exp mlet* ifeq npl-map ifaunit npl-mapAddN npl-filter npl-append npl-sort)
 
-;; definition of structures for npl programs - Do NOT change
+;; definition of structures for npl programs
 (struct var  (string) #:transparent)  ;; a variable, e.g., (var "foo")
 (struct int  (num)    #:transparent)  ;; a constant number, e.g., (int 17)
 (struct add  (e1 e2)  #:transparent)  ;; add two expressions
@@ -41,29 +39,21 @@ eval-exp mlet* ifeq npl-map ifaunit npl-mapAddN npl-filter npl-append npl-sort)
 ;; a closure is not in "source" programs but /is/ a npl value; it is what functions evaluate to
 (struct closure (env fun) #:transparent)
 
-;; Problem 1
-
-;; CHANGE (put your solutions here)
 (define (racketlist->npllist rList)
   (cond [(null? rList) (aunit)]
         [else (apair (car rList) (racketlist->npllist (cdr rList)))]))
 
-;; Problem 2
 (define (npllist->racketlist mList)
   (cond [(aunit? mList) null]
         [else (cons (apair-e1 mList) (npllist->racketlist (apair-e2 mList)))]))
 
 ;; lookup a variable in an environment
-;; Do NOT change this function
 (define (envlookup env str)
   (cond [(null? env) (error "unbound variable during evaluation" str)]
         [(equal? (car (car env)) str) (cdr (car env))]
         [#t (envlookup (cdr env) str)]))
 
-;; Do NOT change the two cases given to you.
-;; DO add more cases for other kinds of npl expressions.
-;; We will test eval-under-env by calling it directly even though
-;; "in real life" it would be a helper function of eval-exp.
+; evaluating an expression under an environment
 (define (eval-under-env e env)
   (cond [(var? e)
          (envlookup env (var-string e))]
@@ -145,11 +135,9 @@ eval-exp mlet* ifeq npl-map ifaunit npl-mapAddN npl-filter npl-append npl-sort)
                                         (cons binding2 (cons binding1 (closure-env clos))))))]))]
         [#t (error (format "bad npl expression: ~v" e))]))
 
-;; Do NOT change
+;; eval exp
 (define (eval-exp e)
   (eval-under-env e null))
-
-;; Problem 3
 
 (define (ifaunit e1 e2 e3)
   (mlet "v1" e1
@@ -168,8 +156,6 @@ eval-exp mlet* ifeq npl-map ifaunit npl-mapAddN npl-filter npl-append npl-sort)
               (ifgreater (var "_x") (var "_y") (int 0) (int 1))
               (ifgreater (var "_y") (var "_x") (int 1) (int 0))
               e3 e4))))
-
-;; Problem 4
 
 (define npl-map
   (fun "npl-map" "npl-fn"
@@ -255,20 +241,5 @@ eval-exp mlet* ifeq npl-map ifaunit npl-mapAddN npl-filter npl-append npl-sort)
     )
     )
   ))
-;; Challenge Problem
 
-(struct fun-challenge (nameopt formal body freevars) #:transparent) ;; a recursive(?) 1-argument function
-
-;; We will test this function directly, so it must do
-;; as described in the assignment
-(define (compute-free-vars e) "CHANGE")
-
-;; Do NOT share code with eval-under-env because that will make
-;; auto-grading and peer assessment more difficult, so
-;; copy most of your interpreter here and make minor changes
-(define (eval-under-env-c e env) "CHANGE")
-
-;; Do NOT change this
-(define (eval-exp-c e)
-  (eval-under-env-c (compute-free-vars e) null))
-)
+) ; closing the module
